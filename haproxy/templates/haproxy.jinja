@@ -627,3 +627,13 @@ backend {{ backend.get('name', backend_name) }}
     {%- endif %}
   {% endfor %}
 {%- endif %}
+
+{%- if 'extra' in salt['pillar.get']('haproxy', {}) %}
+{%- if salt['pillar.get']('haproxy:extra', {}) is string %}
+{{ salt['pillar.get']('haproxy:extra') }}
+{%- else %}
+{%- for line in salt['pillar.get']('haproxy:extra') %}
+{{ line }}
+{%- endfor %}
+{%- endif %}
+{%- endif %}
